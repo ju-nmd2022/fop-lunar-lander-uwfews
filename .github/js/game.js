@@ -42,3 +42,59 @@ function draw() {
 }
 
 //Write Gravity logic//
+
+let gravity = 0.05;
+let rocket = {
+  latitude: 155,
+  altitude: 55,
+  acceleration: 0,
+  Speed: 0,
+};
+
+function applyGravity() {
+  rocket.acceleration = gravity;
+}
+
+function acceleraterocket() {
+  rocket.Speed += rocket.acceleration;
+  rocket.altitude += rocket.Speed;
+}
+
+function draw() {
+  drawEnvironment();
+  applyGravity();
+  acceleraterocket();
+  drawrocket(rocket.latitude, rocket.altitude);
+}
+
+//Write Crash/Land Logic//
+
+let gameIsRunning = true;
+let crashSpeedLimit = 1.7;
+
+function checkCollision() {
+  if (rocket.altitude > 405) {
+    if (rocket.Speed > crashSpeedThreshold) {
+      // Speed would be too high at contact [CRASH]
+      displayPrompt("You CRASHED. Press SPACE", 80, 220);
+    } else {
+      // Speed would be safe for contact [LAND]
+      displayPrompt("You LANDED. Press SPACE", 80, 220);
+    }
+    rocket.altitude = 373;
+    rocket.Speed = 0;
+    rocket.acceleration = 0;
+    gameIsRunning = false;
+    gameState = "end";
+  }
+}
+
+function draw() {
+  if (gameIsRunning) {
+    drawEnvironment();
+    applyGravity();
+    acceleraterocket();
+    checkCollision();
+    drawrocket(rocket.latitude, rocket.altitude);
+  }
+}
