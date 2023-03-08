@@ -98,3 +98,49 @@ function draw() {
     drawrocket(rocket.latitude, rocket.altitude);
   }
 }
+
+//Engine Logic//
+
+let engineAcceleration = 0.12;
+
+function activateengine() {
+  rocket.acceleration -= engineAcceleration;
+}
+
+function checkInput() {
+  if (keyIsPressed) {
+    if (key === " ") {
+      switch (gameState) {
+        case "start":
+          gameState = "game";
+          gameIsRunning = true;
+          break;
+        case "game":
+          activateengine();
+          break;
+        case "end":
+          rocket.latitude = 150;
+          rocket.altitude = 125;
+          gameState = "game";
+          gameIsRunning = true;
+          break;
+        default:
+          break;
+      }
+    }
+  }
+}
+
+function draw() {
+  if (gameIsRunning) {
+    drawEnvironment();
+    applyGravity();
+    checkInput();
+    acceleraterocket();
+    checkCollision();
+    drawrocket(rocket.latitude, rocket.altitude);
+  }
+  //checkInput();
+}
+
+////
