@@ -36,11 +36,6 @@ function drawEnvironment() {
   pop();
 }
 
-function draw() {
-  drawEnvironment();
-  drawrocket(155, 125);
-}
-
 //Write Gravity logic//
 
 let gravity = 0.05;
@@ -58,13 +53,6 @@ function applyGravity() {
 function acceleraterocket() {
   rocket.Speed += rocket.acceleration;
   rocket.altitude += rocket.Speed;
-}
-
-function draw() {
-  drawEnvironment();
-  applyGravity();
-  acceleraterocket();
-  drawrocket(rocket.latitude, rocket.altitude);
 }
 
 //Write Crash/Land Logic//
@@ -86,16 +74,6 @@ function checkCollision() {
     rocket.acceleration = 0;
     gameIsRunning = false;
     gameState = "end";
-  }
-}
-
-function draw() {
-  if (gameIsRunning) {
-    drawEnvironment();
-    applyGravity();
-    acceleraterocket();
-    checkCollision();
-    drawrocket(rocket.latitude, rocket.altitude);
   }
 }
 
@@ -140,7 +118,6 @@ function draw() {
     checkCollision();
     drawrocket(rocket.latitude, rocket.altitude);
   }
-  //checkInput();
 }
 
 ////
